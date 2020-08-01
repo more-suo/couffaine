@@ -1,5 +1,6 @@
 import operators
 
+
 def parse_expression(expression: str) -> list:
     expression = expression.replace(' ', '') + '\\'  # backslash is added to know the end of string
     tmp_expression = []
@@ -38,19 +39,13 @@ def polish_notation(expression):
     output.extend(operations[::-1])
     return output
 
-#
-# def solve_expression(expression):
-#     expression = polish_notation(expression)
-#     print(expression)
-#     output = []
-#     for element in expression:
-#         print(output)
-#         if element[0].isdigit():
-#             output.append(int(element))
-#         else:
-#             output.append(operators.operators[element](output.pop(), output.pop()))
-#     return output
-#
-exp = "2 + 3  * 4"
-print(exp)
-print(polish_notation(exp))
+
+def solve_expression(expression):
+    expression = polish_notation(expression)
+    output = []
+    for element in expression:
+        if element[0].isdigit():
+            output.append(int(element))
+        else:
+            output.append(operators.operators[element](output.pop(-2), output.pop()))
+    return output.pop()
