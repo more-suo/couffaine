@@ -1,4 +1,4 @@
-import operators
+from math_parser.operators import operators
 
 
 def parse_expression(expression: str) -> list:
@@ -47,5 +47,5 @@ def solve_expression(expression):
         if element[0].isdigit():
             output.append(int(element))
         else:
-            output.append(operators.operators[element](output.pop(-2), output.pop()))
+            output.append(operators[element](output.pop(-2), output.pop()))
     return output.pop()
