@@ -1,4 +1,6 @@
-def parse_expression(expression):
+import operators
+
+def parse_expression(expression: str) -> list:
     expression = expression.replace(' ', '') + '\\'  # backslash is added to know the end of string
     tmp_expression = []
     tmp_ch = ''
@@ -13,24 +15,28 @@ def parse_expression(expression):
 
 
 def priority(operator):
-    first_operations = {'*', '/', '(', ')'}
+    first_operations = {'*', '/'}
     second_operations = {'+', '-'}
     return 0 if operator in first_operations else \
-           1 if operator in second_operations else -1
+        1 if operator in second_operations else -1
 
 
-def solve_expression(expression):
+def polish_notation(expression):
     expression = parse_expression(expression)
     output, operations = [], []
     for element in expression:
         if element[0].isdigit():
             output.append(element)
         else:
-            operations.append(element)
+            if priority(element) == -1:
+                assert ValueError
+            elif len(operations) and priority(element) >= priority(operations[-1]):
+                output.append(operations.pop())
+                operations.append(element)
+            else:
+                operations.append(element)
+    output.extend(operations)
+    return output
 
-    print(output)
-    print(operations)
-    return
 
-
-solve_expression("234 +   2")
+print(polish_notation("234 + 4  * 4"))
