@@ -12,12 +12,24 @@ def parse_expression(expression):
     return tmp_expression[:-1]
 
 
-def solve_expression(expression):
-    expression = parse_expression(expression)
+def priority(operator):
     first_operations = {'*', '/', '(', ')'}
     second_operations = {'+', '-'}
+    return 0 if operator in first_operations else \
+           1 if operator in second_operations else -1
+
+
+def solve_expression(expression):
+    expression = parse_expression(expression)
     output, operations = [], []
-    print(expression)
+    for element in expression:
+        if element[0].isdigit():
+            output.append(element)
+        else:
+            operations.append(element)
+
+    print(output)
+    print(operations)
     return
 
 
