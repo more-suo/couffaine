@@ -2,6 +2,14 @@ from telebot import types
 import settings
 from math_parser.math_parser import solve_expression
 import telebot
+import threading
+from random import randint
+
+
+def awake():
+    threading.Timer(1740, awake).start()  # Перезапуск через 5 секунд
+    print("29 minutes are over, I'm still alive.")
+    couffaine.send_message(-1001277765819, "29 minutes are over, I'm still alive.")
 
 couffaine = telebot.TeleBot(settings.TELEBOT_TOKEN)
 
@@ -24,7 +32,17 @@ def query_text(query):
 
 @couffaine.message_handler(func=lambda message: True)
 def echo_all(message):
-    couffaine.reply_to(message, message.text)
+    hate_answers = ["Длявер, замолчи уже, пожалуйста.",
+                    "Длявер совсем заебал.",
+                    "Длявер, иди нахуй, а.",
+                    "Длявер, тупица ты недоделанная.",
+                    "Длявер, ты таким родился?"]
+    classic_answers = ["Let's do some math.",
+                       "I will solve your problems.",
+                       "Math is fun."]
+    couffaine.reply_to(message, classic_answers[randint(0,2)] if message.chat.id != -1001277765819 else hate_answers[randint(0, 4)])
     print(message.chat.id)
 
+
+awake()
 couffaine.polling()
