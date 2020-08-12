@@ -1,4 +1,5 @@
 from operators import *
+import math
 
 
 def parse_expression(expression: str) -> list:
@@ -6,10 +7,13 @@ def parse_expression(expression: str) -> list:
     tmp_expression = []
     tmp_ch = ''
     for ch in expression:
-        if ch.isdigit():
+        if ch.isdigit() or ch == '.':
             tmp_ch += ch
+        elif ch == ',':
+            tmp_ch += '.'
         else:
-            tmp_expression.append(tmp_ch)
+            if tmp_ch != '':
+                tmp_expression.append(tmp_ch)
             tmp_expression.append(ch)
             tmp_ch = ''
     return tmp_expression[:-1]
@@ -26,7 +30,7 @@ def polish_notation(expression):
     expression = parse_expression(expression)
     output, operations = [], []
     for element in expression:
-        if element.isdigit():
+        if element[0].isdigit():
             output.append(element)
         elif element == '(':
             operations.append(element)
@@ -50,10 +54,8 @@ def solve_expression(expression):
     output = []
     for element in expression:
         if element[0].isdigit():
-            output.append(int(element))
+            output.append(float(element))
         else:
             output.append(operators[element](output.pop(-2), output.pop()))
-    return output.pop()
-
-
-print(solve_expression('(6+4) * (2 + (1 + 2 + 1))'))
+    answer = output.pop()
+    return int(answer) if math.modf(answer)[0] == 0.0 else answer
