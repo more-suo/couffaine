@@ -57,5 +57,5 @@ def solve_expression(expression):
             output.append(float(element))
         else:
             output.append(operators[element](output.pop(-2), output.pop()))
-    answer = output.pop()
+    answer = round(output.pop(), 8)
     return int(answer) if math.modf(answer)[0] == 0.0 else answer
