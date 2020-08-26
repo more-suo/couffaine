@@ -1,4 +1,4 @@
-from operators import *
+from math_parser.operators import *
 import math
 
 
