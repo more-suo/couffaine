@@ -3,7 +3,6 @@ import settings
 from math_parser.math_parser import solve_expression
 import telebot
 import threading
-from random import randint
 
 
 def awake():
@@ -33,8 +32,8 @@ def query_text(query):
             types.InputTextMessageContent(message_text=query.query + ' = ' + answer)
         )
         couffaine.answer_inline_query(query.id, [result])
-    except (IndexError) as exc:
-        return
+    except IndexError as exc:
+        print(exc)
 
 
 awake()

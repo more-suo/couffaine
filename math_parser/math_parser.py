@@ -19,11 +19,13 @@ def parse_expression(expression: str) -> list:
     return tmp_expression[:-1]
 
 
-def priority(operator):
-    first_operations = ('*', '/')
-    second_operations = ('+', '-')
-    return 1 if operator in first_operations else \
-        0 if operator in second_operations else -1
+def priority(op):
+    first_operations = ('^', '**')
+    second_operations = ('*', '/')
+    third_operations = ('+', '-')
+    return 2 if op in third_operations else \
+        1 if op in second_operations else \
+        0 if op in first_operations else -1
 
 
 def polish_notation(expression):
@@ -39,7 +41,7 @@ def polish_notation(expression):
             output.extend(operations[bracket_index + 1:])
             del operations[bracket_index:]
         elif priority(element) == -1:
-            assert ValueError
+            return
         elif len(operations) and priority(element) <= priority(operations[-1]):
             output.append(operations.pop())
             operations.append(element)
@@ -50,6 +52,8 @@ def polish_notation(expression):
 
 
 def solve_expression(expression):
+    if not polish_notation(expression):
+        return "Ø"
     expression = polish_notation(expression)
     output = []
     for element in expression:
