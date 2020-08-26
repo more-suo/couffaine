@@ -17,7 +17,7 @@ couffaine = telebot.TeleBot(settings.TELEBOT_TOKEN)
 
 @couffaine.message_handler(commands=['start'])
 def start_handler(message):
-    greeting_message = "Hey, {0}! I'm Couffaine. What can i do for you?".format(str(message.from_user.username))
+    greeting_message = "Hey, {0}! I'm Couffaine. What can i do for you?".format(str(message.from_user.first_name))
     couffaine.send_message(message.chat.id, greeting_message)
 
 
