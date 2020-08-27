@@ -23,15 +23,16 @@ def priority(op):
     first_operations = ('^', '**')
     second_operations = ('*', '/')
     third_operations = ('+', '-')
-    return 2 if op in third_operations else \
+    return 0 if op in third_operations else \
         1 if op in second_operations else \
-        0 if op in first_operations else -1
+        2 if op in first_operations else -1
 
 
 def polish_notation(expression):
     expression = parse_expression(expression)
     output, operations = [], []
     for element in expression:
+        print(output, operations, sep='\n', end='\n\n')
         if element[0].isdigit():
             output.append(element)
         elif element == '(':
@@ -48,6 +49,7 @@ def polish_notation(expression):
         else:
             operations.append(element)
     output.extend(operations[::-1])
+    print(output)
     return output
 
 
