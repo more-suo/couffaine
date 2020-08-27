@@ -5,13 +5,16 @@ import telebot
 import threading
 
 
-def awake():
-    threading.Timer(1740, awake).start()  # Перезапуск через 5 секунд
-    print("29 minutes are over, I'm still alive.")
-    couffaine.send_message(-1001277765819, "29 minutes are over, I'm still alive.")
-
-
 couffaine = telebot.TeleBot(settings.TELEBOT_TOKEN)
+
+
+# def awake():
+#     threading.Timer(1740, awake).start()  # Перезапуск через 5 секунд
+#     print("29 minutes are over, I'm still alive.")
+#     couffaine.send_message(-1001277765819, "29 minutes are over, I'm still alive.")
+#
+#
+# awake()
 
 
 @couffaine.message_handler(commands=['start'])
@@ -33,9 +36,8 @@ def query_text(query):
             types.InputTextMessageContent(message_text=query.query + ' = ' + answer)
         )
         couffaine.answer_inline_query(query.id, [result])
-    except IndexError as exc:
+    except (IndexError, KeyError) as exc:
         print(exc)
 
 
-awake()
 couffaine.polling()

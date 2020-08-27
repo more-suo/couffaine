@@ -38,18 +38,20 @@ def polish_notation(expression):
         elif element == '(':
             operations.append(element)
         elif element == ')':
-            bracket_index = len(operations) - operations[::-1].index('(') - 1
-            output.extend(operations[bracket_index + 1:])
-            del operations[bracket_index:]
+            last_parenthesis_index = ''.join(operations).rindex('(')
+            print("The last '(' was on index", last_parenthesis_index, "in", operations)
+            output.extend(operations[last_parenthesis_index+1::][::-1])
+            del operations[last_parenthesis_index::]
+            print(output, operations, sep='\n', end='\n\n')
         elif priority(element) == -1:
             return
-        elif len(operations) and priority(element) <= priority(operations[-1]):
+        elif len(operations) and operations[-1] != '(' and priority(element) <= priority(operations[-1]):
             output.append(operations.pop())
             operations.append(element)
         else:
             operations.append(element)
     output.extend(operations[::-1])
-    print(output)
+    # print(output)
     return output
 
 
@@ -58,6 +60,7 @@ def solve_expression(expression):
         return "Ø"
     expression = polish_notation(expression)
     output = []
+    print(expression)
     for element in expression:
         if element[0].isdigit():
             output.append(float(element))
