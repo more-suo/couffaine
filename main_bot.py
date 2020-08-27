@@ -2,14 +2,14 @@ from telebot import types
 import settings
 from math_parser.math_parser import solve_expression
 import telebot
-import threading
 
 
 couffaine = telebot.TeleBot(settings.TELEBOT_TOKEN)
 
 
+# import threading
 # def awake():
-#     threading.Timer(1740, awake).start()  # Перезапуск через 5 секунд
+#     threading.Timer(1740, awake).start()  # Keep the bot every 29 minutes awake
 #     print("29 minutes are over, I'm still alive.")
 #     couffaine.send_message(-1001277765819, "29 minutes are over, I'm still alive.")
 #
