@@ -63,6 +63,9 @@ def solve_expression(expression):
         if element[0].isdigit():
             output.append(float(element))
         else:
-            output.append(operators[element](output.pop(-2), output.pop()))
+            try:
+                output.append(operators[element](output.pop(-2), output.pop()))
+            except ZeroDivisionError:
+                return "Ø"
     answer = round(output.pop(), 8)
     return int(answer) if math.modf(answer)[0] == 0.0 else answer
