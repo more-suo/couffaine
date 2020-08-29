@@ -72,7 +72,10 @@ def polish_notation(expression):
 def solve_expression(expression):
     if not polish_notation(expression):
         return "Ø"
-    expression = polish_notation(expression)
+    try:
+        expression = polish_notation(expression)
+    except ValueError:
+        return "Ø"
     output = []
     # print(expression)
     for element in expression:
@@ -83,5 +86,7 @@ def solve_expression(expression):
                 output.append(operators[element](output.pop(-2), output.pop()))
             except ZeroDivisionError:
                 return "Ø"
+            except OverflowError:
+                return "Result too large"
     answer = round(output.pop(), 8)
     return int(answer) if math.modf(answer)[0] == 0.0 else answer
