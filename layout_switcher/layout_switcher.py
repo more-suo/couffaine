@@ -4,7 +4,8 @@ cyrillic_layout = "йцукенгшщзхъ" + \
                   "!\"№;%:?*()_+" + \
                   "ЙЦУКЕНГШЩЗХЪ" + \
                   "ФЫВАПРОЛДЖЭ" + \
-                  "ЯЧСМИТЬБЮ,"
+                  "ЯЧСМИТЬБЮ, " + \
+                  "1234567890-="
 
 latin_layout = "qwertyuiop[]" + \
                "asdfghjkl;'" + \
@@ -12,10 +13,16 @@ latin_layout = "qwertyuiop[]" + \
                "!@#$%^&*()_+" + \
                "QWERTYUIOP{}" + \
                "ASDFGHJKL:\"" + \
-               "ZXCVBNM<>?"
+               "ZXCVBNM<>? " + \
+               "1234567890-="
 
 cyrillic_to_latin = dict(zip(cyrillic_layout, latin_layout))
 latin_to_cyrillic = dict(zip(latin_layout, cyrillic_layout))
 
-print(cyrillic_to_latin)
-print(latin_to_cyrillic)
+x = input()
+y = []
+
+for ch in x:
+    y.append(cyrillic_to_latin[ch])
+
+print(''.join(y))
