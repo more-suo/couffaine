@@ -19,16 +19,16 @@ couffaine = telebot.TeleBot(settings.TELEBOT_TOKEN)
 # awake()
 
 
-def solve_query(query):
-    answer = str(solve_expression(query.query))
+def send_solution(id, expression):
+    answer = str(solve_expression(expression))
     result = types.InlineQueryResultArticle(
         id='1',
-        title=query.query + ' = ' + answer,
+        title=expression + ' = ' + answer,
         description='Solved!',
         input_message_content=
-        types.InputTextMessageContent(message_text=query.query + ' = ' + answer)
+        types.InputTextMessageContent(message_text=expression + ' = ' + answer)
     )
-    couffaine.answer_inline_query(query.id, [result])
+    couffaine.answer_inline_query(id, [result])
 
 
 @couffaine.message_handler(commands=['start'])
@@ -40,16 +40,22 @@ def start_handler(message):
 
 @couffaine.inline_handler(func=lambda query: len(query.query) > 0)
 def query_text(query):
-    command = query.query.split()[0]
+    split_query = query.query.split()
+    command = split_query[0]
+
     if command[0] == 's':  # stands for solve
         try:
-            solve_query(query)
+            send_solution(query.id, ''.join(split_query[1:]))
         except (IndexError, KeyError) as exc:
             print("Failed to solve:", exc)
+
     elif command[0] == 't':  # stands for translate
-        split_text = query.query.split()
-        layout, text = split_text[1], ' '.join(split_text[2:])
-        print(layout, text)
+        try:
+            split_text = query.query.split()
+            layout, text = split_text[1], ' '.join(split_text[2:])
+            print(layout, text)
+        except IndexError as exc:
+            print("Failed to translate:", exc)
 
 
 couffaine.polling()
