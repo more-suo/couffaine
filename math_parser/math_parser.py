@@ -2,11 +2,11 @@ from math_parser.operators import *
 import math
 
 
-def simplify_expression(expression: list) -> list:
+def simplify(expression: list) -> list:
     result = []
     tmp = ''
     for element in expression:
-        if element == '+' or element == '-':
+        if element in ('+', '-'):
             tmp += element
         else:
             if tmp != '' and (tmp.count('-') % 2) == 0:
@@ -15,19 +15,17 @@ def simplify_expression(expression: list) -> list:
                 result.append('-')
             tmp = ''
             result.append(element)
+    print(result)
     return result
 
 
-def parse_expression(expression: str) -> list:
-    expression = expression.replace(' ', '') + '\\'  # backslash is added to know the end of string
+def parse(expression: str) -> list:
+    expression = expression.replace(' ', '').replace(',', '.').replace('—', '-') + '\\'  # backslash for end of string
     tmp_expression = []
     tmp_ch = ''
     for ch in expression:
-        # print(ch, tmp_expression)
         if ch.isdigit() or ch == '.':
             tmp_ch += ch
-        elif ch == ',':
-            tmp_ch += '.'
         else:
             if tmp_ch != '':
                 tmp_expression.append(tmp_ch)
@@ -46,8 +44,7 @@ def priority(op):
 
 
 def polish_notation(expression):
-    expression = parse_expression(expression)
-    expression = simplify_expression(expression)
+    expression = simplify(parse(expression))
     print(expression)
     output, operations = [], []
     for element in expression:
