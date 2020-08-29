@@ -13,3 +13,9 @@ latin_layout = "qwertyuiop[]" + \
                "QWERTYUIOP{}" + \
                "ASDFGHJKL:\"" + \
                "ZXCVBNM<>?"
+
+cyrillic_to_latin = dict(zip(cyrillic_layout, latin_layout))
+latin_to_cyrillic = dict(zip(latin_layout, cyrillic_layout))
+
+print(cyrillic_to_latin)
+print(latin_to_cyrillic)
