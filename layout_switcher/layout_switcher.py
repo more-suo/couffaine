@@ -21,10 +21,21 @@ latin_layout = "qwertyuiop[]" + \
 cyrillic_to_latin = dict(zip(cyrillic_layout, latin_layout))
 latin_to_cyrillic = dict(zip(latin_layout, cyrillic_layout))
 
-x = input()
-y = []
 
-for ch in x:
-    y.append(cyrillic_to_latin[ch])
+def translate_layout(s, dictionary):
+    result = ''
+    for char in s:
+        try:
+            translated_char = dictionary[char]
+        except KeyError:
+            translated_char = char
+        result += translated_char
+    return result
 
-print(''.join(y))
+
+def translate_to_cyrillic(s):
+    return translate_layout(s, latin_to_cyrillic)
+
+
+def translate_to_latin(s):
+    return translate_layout(s, cyrillic_to_latin)
