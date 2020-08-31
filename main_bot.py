@@ -6,7 +6,7 @@ from layout_switcher.layout_switcher import translate_to_latin
 import telebot
 
 
-couffaine = telebot.TeleBot(settings.TELEBOT_TOKEN)
+couffaine = telebot.TeleBot(settings.MAINBOT_TOKEN)
 
 
 # import threading
