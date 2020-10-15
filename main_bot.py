@@ -1,9 +1,8 @@
 from telebot import types
+import telebot
 import settings
-from math_parser.math_parser import solve_expression
 from layout_switcher.layout_switcher import translate_to_cyrillic
 from layout_switcher.layout_switcher import translate_to_latin
-import telebot
 
 
 couffaine = telebot.TeleBot(settings.MAINBOT_TOKEN)
